@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ShoppingHelperForms.MainPage">
+
+    <StackLayout>
+        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Shopping Helper"
+                       TextColor="White"
+                       FontSize="Medium"
+                       FontAttributes="Bold"
+                       HorizontalOptions="StartAndExpand"
+                       VerticalOptions="Center"></Label>
+                <Button Text="Add Item"
+                        VerticalOptions="Center"
+                        CornerRadius="10"
+                        WidthRequest="150"
+                        x:Name="itemAddBtn"
+                        Clicked="itemAddBtn_Clicked"></Button>
+            </StackLayout>
+        </Frame>
+        <StackLayout Orientation="Vertical">
+            <ListView x:Name="itemListView"
+                  SeparatorColor="Black"
+                  ItemTapped="itemListView_ItemTapped"
+                  SelectionMode="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <CheckBox IsChecked="{Binding IsChecked}"
+                                      Margin="10,0,10,0"></CheckBox>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Name}" 
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="StartAndExpand"></Label>
+                                    <Label Text="{Binding Quantity, StringFormat='({0} adet)'}"
+                                       TextColor="Gray"
+                                       FontSize="Small"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="End"></Label>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Delete Completed Items"
+                    CornerRadius="10"
+                    Margin="10, 0, 10, 10"
+                    BackgroundColor="Green"
+                    TextColor="White"
+                    x:Name="deleteItemBtn"
+                    Clicked="deleteItemBtn_Clicked"></Button>
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>
