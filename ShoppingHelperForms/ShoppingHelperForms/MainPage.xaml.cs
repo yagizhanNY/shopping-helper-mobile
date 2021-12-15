@@ -1,4 +1,6 @@
 ﻿using ShoppingHelperForms.Model;
+using ShoppingHelperForms.Services.Abstract;
+using ShoppingHelperForms.Services.Concrete;
 using ShoppingHelperForms.Views;
 using System;
 using System.Collections.Generic;
@@ -14,13 +16,17 @@ namespace ShoppingHelperForms
     public partial class MainPage : ContentPage
     {
         ObservableCollection<Item> _itemList = new ObservableCollection<Item>();
+        IShoppingItemService _shoppingItemService;
+
         public MainPage()
         {
             InitializeComponent();
+            _shoppingItemService = new ShoppingItemApiService();
 
-            _itemList.Add(new Item() { Name = "Salatalık", IsChecked = false, Quantity = 2 });
-            _itemList.Add(new Item() { Name = "Marul", IsChecked = false, Quantity = 1 });
-            _itemList.Add(new Item() { Name = "Süt", IsChecked = false, Quantity = 2 });
+            _itemList = Task.Run( async () =>
+            {
+                return await _shoppingItemService.GetAllAsync();
+            }).Result; 
 
             itemListView.ItemsSource = _itemList;
         }
@@ -38,12 +44,13 @@ namespace ShoppingHelperForms
             foreach (var selectedItem in selectedItemList)
             {
                 _itemList.Remove(selectedItem);
+                _shoppingItemService.DeleteItemAsync(selectedItem);
             }
         }
 
         private void itemAddBtn_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new AddItemPage());
+            Navigation.PushAsync(new AddItemPage(_itemList));
         }
     }
 }

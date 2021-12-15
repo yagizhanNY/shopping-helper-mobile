@@ -7,6 +7,7 @@ namespace ShoppingHelperForms.Model
 {
     public class Item : INotifyPropertyChanged
     {
+        public string _id { get; set; }
         private bool _isChecked = false;
         public string Name { get; set; }
         public int Quantity { get; set; }

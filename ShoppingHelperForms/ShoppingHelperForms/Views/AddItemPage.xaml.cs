@@ -1,8 +1,10 @@
 ﻿using ShoppingHelperForms.Entities;
+using ShoppingHelperForms.Model;
 using ShoppingHelperForms.Services;
 using ShoppingHelperForms.Services.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,27 +18,33 @@ namespace ShoppingHelperForms.Views
     public partial class AddItemPage : ContentPage
     {
         IBarcodeApi _barcodeApiService;
-        public AddItemPage()
+        ObservableCollection<Item> _items;
+        public AddItemPage(ObservableCollection<Item> items)
         {
             InitializeComponent();
             _barcodeApiService = new BarcodeApiService();
+            _items = items;
         }
 
         private void ZXingScannerView_OnScanResult(ZXing.Result result)
         {
-            Device.BeginInvokeOnMainThread(async () =>
+            Device.BeginInvokeOnMainThread(() =>
             {
-                bool status = await _barcodeApiService.AddItemAsync("come from code", result.Text);
-                Console.WriteLine(status);
+                BarcodeItem item = Task.Run(async () =>
+               {
+                   return await _barcodeApiService.GetItemByCodeAsync(result.Text);
+               }).Result;
 
-                if (status)
+                if(item != null)
                 {
-                    BarcodeItem item = await _barcodeApiService.GetItemByCodeAsync(result.Text);
-                    barcodeResultLbl.Text = item.Name;
+                    Navigation.PushAsync(new AddQuantityPage(item, _items));
+                    Navigation.RemovePage(this);
                 }
-
-                /*BarcodeItem item = await _barcodeApiService.GetItemByCodeAsync(result.Text);
-                barcodeResultLbl.Text = item.Name;*/
+                else
+                {
+                    Navigation.PushAsync(new AddNewItemPage(result.Text, _items));
+                    Navigation.RemovePage(this);
+                }
             });
         }
     }

@@ -14,7 +14,7 @@ namespace ShoppingHelperForms.Services.Concrete
 
         public async Task<bool> AddItemAsync(string name, string code)
         {
-            string url = _apiUrl + $"add?name={name}&code={code}";
+            string url = _apiUrl + $"barcode/add?name={name}&code={code}";
             
             using (HttpClient client = new HttpClient())
             {
@@ -36,7 +36,7 @@ namespace ShoppingHelperForms.Services.Concrete
 
         public async Task<List<BarcodeItem>> GetAllAsync()
         {
-            string url = _apiUrl + "getall";
+            string url = _apiUrl + "barcode/getall";
 
             using (HttpClient client = new HttpClient())
             {
@@ -48,13 +48,23 @@ namespace ShoppingHelperForms.Services.Concrete
 
         public async Task<BarcodeItem> GetItemByCodeAsync(string code)
         {
-            string url = _apiUrl + "get/" + code;
+            string url = _apiUrl + "barcode/get/" + code;
 
             using (HttpClient client = new HttpClient())
             {
                 var result = await client.GetAsync(url);
                 string data = await result.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<BarcodeItem>(data);
+
+                try
+                {
+                    BarcodeItem item = JsonConvert.DeserializeObject<List<BarcodeItem>>(data)[0];
+                    return item;
+                }
+                catch
+                {
+                    return null;
+                }
+                
             }
         }
 
