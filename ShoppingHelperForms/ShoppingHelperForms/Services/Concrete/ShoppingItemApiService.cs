@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using ShoppingHelperForms.Model;
 using ShoppingHelperForms.Services.Abstract;
 using System;
@@ -16,7 +17,7 @@ namespace ShoppingHelperForms.Services.Concrete
 
         public async Task<Item> AddItem(Item item)
         {
-            string url = _apiUrl + $"shopping/add";
+            string url = _apiUrl + "shopping/add";
             return await SendPostRequest(item, url);
         }
 
@@ -24,7 +25,12 @@ namespace ShoppingHelperForms.Services.Concrete
         {
             using (HttpClient client = new HttpClient())
             {
-                HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(item), Encoding.UTF8, "application/json");
+                JsonSerializerSettings serializerSettings = new JsonSerializerSettings
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver()
+                };
+
+                HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(item, serializerSettings), Encoding.UTF8, "application/json");
                 HttpResponseMessage result = await client.PostAsync(url, httpContent);
                 string data = await result.Content.ReadAsStringAsync();
                 try

@@ -23,7 +23,7 @@ namespace ShoppingHelperForms
             InitializeComponent();
             _shoppingItemService = new ShoppingItemApiService();
 
-            _itemList = Task.Run( async () =>
+            _itemList = Task.Run(async () =>
             {
                 return await _shoppingItemService.GetAllAsync();
             }).Result; 
@@ -39,18 +39,29 @@ namespace ShoppingHelperForms
 
         private void deleteItemBtn_Clicked(object sender, EventArgs e)
         {
-            var selectedItemList = _itemList.Where(i => i.IsChecked == true).ToList();
+            List<Item> selectedItemList = _itemList.Where(i => i.IsChecked).ToList();
 
-            foreach (var selectedItem in selectedItemList)
+            foreach (Item selectedItem in selectedItemList)
             {
                 _itemList.Remove(selectedItem);
                 _shoppingItemService.DeleteItemAsync(selectedItem);
             }
         }
 
-        private void itemAddBtn_Clicked(object sender, EventArgs e)
+        private async void itemAddBtn_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new AddItemPage(_itemList));
+            string action = await DisplayActionSheet("Select the add method", "Cancel", null, "Add via Barcode", "Add Manually");
+
+
+            if(action == "Add via Barcode")
+            {
+                await Navigation.PushAsync(new AddItemPage(_itemList));
+            }
+            else if(action == "Add Manually")
+            {
+                await Navigation.PushAsync(new AddManuallyPage(_itemList));
+            }
+            
         }
     }
 }

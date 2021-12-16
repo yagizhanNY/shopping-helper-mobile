@@ -4,7 +4,7 @@
              x:Class="ShoppingHelperForms.MainPage">
 
     <StackLayout>
-        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+        <Frame BackgroundColor="#0C4FB3" Padding="24" CornerRadius="0">
             <StackLayout Orientation="Horizontal">
                 <Label Text="Shopping Helper"
                        TextColor="White"
@@ -17,7 +17,8 @@
                         CornerRadius="10"
                         WidthRequest="150"
                         x:Name="itemAddBtn"
-                        Clicked="itemAddBtn_Clicked"></Button>
+                        Clicked="itemAddBtn_Clicked"
+                        BackgroundColor="#B0B6BA"></Button>
             </StackLayout>
         </Frame>
         <StackLayout Orientation="Vertical">
@@ -30,7 +31,8 @@
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
                                 <CheckBox IsChecked="{Binding IsChecked}"
-                                      Margin="10,0,10,0"></CheckBox>
+                                      Margin="10,0,10,0"
+                                      Color="#0C4FB3"></CheckBox>
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="{Binding Name}" 
                                        VerticalOptions="Center"

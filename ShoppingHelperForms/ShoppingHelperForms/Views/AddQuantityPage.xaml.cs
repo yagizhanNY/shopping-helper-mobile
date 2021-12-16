@@ -1,5 +1,7 @@
 ﻿using ShoppingHelperForms.Entities;
 using ShoppingHelperForms.Model;
+using ShoppingHelperForms.Services.Abstract;
+using ShoppingHelperForms.Services.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -17,6 +19,7 @@ namespace ShoppingHelperForms.Views
     {
         BarcodeItem _barcodeItem;
         ObservableCollection<Item> _items;
+        IShoppingItemService _shoppingItemService;
 
         public AddQuantityPage(BarcodeItem item, ObservableCollection<Item> items)
         {
@@ -24,9 +27,10 @@ namespace ShoppingHelperForms.Views
             _barcodeItem = item;
             InitializeComponent();
             codeEntry.Text = _barcodeItem.Code;
+            _shoppingItemService = new ShoppingItemApiService();
         }
 
-        private void addItemBtn_Clicked(object sender, EventArgs e)
+        private async void addItemBtn_Clicked(object sender, EventArgs e)
         {
             Item item = new Item()
             {
@@ -37,7 +41,9 @@ namespace ShoppingHelperForms.Views
 
             _items.Add(item);
 
-            Navigation.PopAsync();
+            _ = await _shoppingItemService.AddItem(item);
+
+            await Navigation.PopAsync();
         }
     }
 }

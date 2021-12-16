@@ -1,4 +1,6 @@
 ﻿using ShoppingHelperForms.Model;
+using ShoppingHelperForms.Services;
+using ShoppingHelperForms.Services.Abstract;
 using ShoppingHelperForms.Services.Concrete;
 using System;
 using System.Collections.Generic;
@@ -17,7 +19,8 @@ namespace ShoppingHelperForms.Views
     {
         string _code;
         ObservableCollection<Item> _itemList;
-        BarcodeApiService _barcodeApi;
+        IBarcodeApi _barcodeApi;
+        IShoppingItemService _shoppingItemService;
 
         public AddNewItemPage(string code, ObservableCollection<Item> itemList)
         {
@@ -29,6 +32,7 @@ namespace ShoppingHelperForms.Views
             codeEntry.Text = _code;
 
             _barcodeApi = new BarcodeApiService();
+            _shoppingItemService = new ShoppingItemApiService();
         }
 
         private async void addItemBtn_Clicked(object sender, EventArgs e)
@@ -43,6 +47,7 @@ namespace ShoppingHelperForms.Views
             };
 
             _itemList.Add(item);
+            _ = await _shoppingItemService.AddItem(item);
 
             _ = await Navigation.PopAsync();
         }
