@@ -1,4 +1,5 @@
 ﻿using ShoppingHelperForms.Entities;
+using ShoppingHelperForms.Interfaces;
 using ShoppingHelperForms.Model;
 using ShoppingHelperForms.Services;
 using ShoppingHelperForms.Services.Concrete;
@@ -30,6 +31,7 @@ namespace ShoppingHelperForms.Views
         {
             Device.BeginInvokeOnMainThread(() =>
             {
+                DependencyService.Get<IAudio>().PlaySound("barcode_sound.mp3");
                 BarcodeItem item = Task.Run(async () =>
                {
                    return await _barcodeApiService.GetItemByCodeAsync(result.Text);
