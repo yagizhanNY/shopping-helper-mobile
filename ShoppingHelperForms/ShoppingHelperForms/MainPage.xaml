@@ -1,38 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ShoppingHelperForms.MainPage">
+             x:Class="ShoppingHelperForms.MainPage"
+             Title="Shopping Helper">
 
     <StackLayout>
-        <Frame BackgroundColor="#0C4FB3" Padding="24" CornerRadius="0">
-            <StackLayout Orientation="Horizontal">
-                <Label Text="Shopping Helper"
-                       TextColor="White"
-                       FontSize="Medium"
-                       FontAttributes="Bold"
-                       HorizontalOptions="StartAndExpand"
-                       VerticalOptions="Center"></Label>
-                <Button Text="Add Item"
-                        VerticalOptions="Center"
-                        CornerRadius="10"
-                        WidthRequest="150"
-                        x:Name="itemAddBtn"
-                        Clicked="itemAddBtn_Clicked"
-                        BackgroundColor="#B0B6BA"></Button>
-            </StackLayout>
-        </Frame>
         <StackLayout Orientation="Vertical">
             <ListView x:Name="itemListView"
                   SeparatorColor="Black"
                   ItemTapped="itemListView_ItemTapped"
-                  SelectionMode="None">
+                  SelectionMode="None"
+                      BackgroundColor="Transparent">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout Orientation="Horizontal">
+                            <StackLayout Orientation="Horizontal"
+                                         BackgroundColor="Transparent">
                                 <CheckBox IsChecked="{Binding IsChecked}"
                                       Margin="10,0,10,0"
-                                      Color="#0C4FB3"></CheckBox>
+                                      Color="#0C4FB3"
+                                      IsEnabled="False"></CheckBox>
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="{Binding Name}" 
                                        VerticalOptions="Center"
@@ -48,13 +35,17 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Text="Delete Completed Items"
-                    CornerRadius="10"
-                    Margin="10, 0, 10, 10"
-                    BackgroundColor="Green"
-                    TextColor="White"
-                    x:Name="deleteItemBtn"
-                    Clicked="deleteItemBtn_Clicked"></Button>
+            <ImageButton Source="plus.png"
+                         WidthRequest="50"
+                         HeightRequest="50"
+                         CornerRadius="100"
+                         BackgroundColor="#0C4FB3"
+                         VerticalOptions="End"
+                         HorizontalOptions="End"
+                         Padding="10"
+                         Margin="10, 10"
+                         x:Name="itemAddBtn"
+                         Clicked="itemAddBtn_Clicked"></ImageButton>
         </StackLayout>
     </StackLayout>
 

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ShoppingHelperForms.Views.RegisterPage"
+             BackgroundColor="#122640">
+    <StackLayout Padding="40"
+                     VerticalOptions="Center"
+                     HorizontalOptions="FillAndExpand">
+        <Image Source="shopping_cart.png"
+                   WidthRequest="150"
+                   HeightRequest="150"
+                   Margin="0, 0, 0, 30"></Image>
+        <Entry Placeholder="Username" TextColor="White" PlaceholderColor="Gray" x:Name="usernameEntry"></Entry>
+        <Entry Placeholder="Password" IsPassword="True" TextColor="White" PlaceholderColor="Gray" x:Name="passwordEntry"></Entry>
+        <Entry Placeholder="Confirm Password" IsPassword="True" TextColor="White" PlaceholderColor="Gray" x:Name="confirmPasswordEntry"></Entry>
+        <Button VerticalOptions="Center"
+                    Text="Register"
+                    TextColor="White"
+                    BackgroundColor="Transparent"
+                    BorderWidth="1.5"
+                    CornerRadius="50"
+                    BorderColor="Gray"
+                    x:Name="registerBtn"
+                    Clicked="registerBtn_Clicked"></Button>
+    </StackLayout>
+</ContentPage>

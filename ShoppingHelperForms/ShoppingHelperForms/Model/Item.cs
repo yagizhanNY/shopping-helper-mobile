@@ -11,6 +11,7 @@ namespace ShoppingHelperForms.Model
         private bool _isChecked = false;
         public string Name { get; set; }
         public int Quantity { get; set; }
+        public string Owner { get; set; }
         public bool IsChecked
         {
             get { return _isChecked; }

@@ -15,10 +15,12 @@ namespace ShoppingHelperForms.Views
     public partial class AddManuallyPage : ContentPage
     {
         ObservableCollection<Item> _itemList;
-        public AddManuallyPage(ObservableCollection<Item> itemList)
+        string _loggedUser;
+        public AddManuallyPage(ObservableCollection<Item> itemList, string loggedUser)
         {
             InitializeComponent();
             _itemList = itemList;
+            _loggedUser = loggedUser;
         }
 
         private void addItemBtn_Clicked(object sender, EventArgs e)
@@ -27,7 +29,8 @@ namespace ShoppingHelperForms.Views
             {
                 IsChecked= false,
                 Name = nameEntry.Text,
-                Quantity = Convert.ToInt32(quantityEntry.Text)
+                Quantity = Convert.ToInt32(quantityEntry.Text),
+                Owner = _loggedUser
             };
 
             _itemList.Add(item);

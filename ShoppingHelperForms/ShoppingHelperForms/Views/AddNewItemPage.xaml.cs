@@ -18,14 +18,16 @@ namespace ShoppingHelperForms.Views
     public partial class AddNewItemPage : ContentPage
     {
         string _code;
+        string _loggedUser;
         ObservableCollection<Item> _itemList;
         IBarcodeApi _barcodeApi;
         IShoppingItemService _shoppingItemService;
 
-        public AddNewItemPage(string code, ObservableCollection<Item> itemList)
+        public AddNewItemPage(string code, ObservableCollection<Item> itemList, string loggedUser)
         {
             _code = code;
             _itemList = itemList;
+            _loggedUser = loggedUser;
 
             InitializeComponent();
 
@@ -43,7 +45,8 @@ namespace ShoppingHelperForms.Views
             {
                 IsChecked = false,
                 Name = nameEntry.Text,
-                Quantity = Convert.ToInt32(quantityEntry.Text)
+                Quantity = Convert.ToInt32(quantityEntry.Text),
+                Owner = _loggedUser
             };
 
             _itemList.Add(item);

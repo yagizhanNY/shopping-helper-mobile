@@ -20,11 +20,13 @@ namespace ShoppingHelperForms.Views
     {
         IBarcodeApi _barcodeApiService;
         ObservableCollection<Item> _items;
-        public AddItemPage(ObservableCollection<Item> items)
+        string _loggedUser;
+        public AddItemPage(ObservableCollection<Item> items, string loggedUser)
         {
             InitializeComponent();
             _barcodeApiService = new BarcodeApiService();
             _items = items;
+            _loggedUser = loggedUser;
         }
 
         private void ZXingScannerView_OnScanResult(ZXing.Result result)
@@ -44,7 +46,7 @@ namespace ShoppingHelperForms.Views
                 }
                 else
                 {
-                    Navigation.PushAsync(new AddNewItemPage(result.Text, _items));
+                    Navigation.PushAsync(new AddNewItemPage(result.Text, _items, _loggedUser));
                     Navigation.RemovePage(this);
                 }
             });

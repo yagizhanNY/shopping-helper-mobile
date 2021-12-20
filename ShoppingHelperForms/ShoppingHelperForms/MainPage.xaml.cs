@@ -17,9 +17,11 @@ namespace ShoppingHelperForms
     {
         ObservableCollection<Item> _itemList = new ObservableCollection<Item>();
         IShoppingItemService _shoppingItemService;
+        string _loggedUser;
 
-        public MainPage()
+        public MainPage(string loggedUser)
         {
+            _loggedUser = loggedUser;
             InitializeComponent();
             _shoppingItemService = new ShoppingItemApiService();
 
@@ -35,6 +37,17 @@ namespace ShoppingHelperForms
         {
             Item selectedItem = e.Item as Item;
             selectedItem.IsChecked = !selectedItem.IsChecked;
+
+            if (selectedItem.IsChecked)
+            {
+                Task.Run(async () =>
+                {
+                    await Task.Delay(500);
+                    _itemList.Remove(selectedItem);
+                    await _shoppingItemService.DeleteItemAsync(selectedItem);
+                });
+                
+            }
         }
 
         private void deleteItemBtn_Clicked(object sender, EventArgs e)
@@ -55,11 +68,11 @@ namespace ShoppingHelperForms
 
             if(action == "Add via Barcode")
             {
-                await Navigation.PushAsync(new AddItemPage(_itemList));
+                await Navigation.PushAsync(new AddItemPage(_itemList, _loggedUser));
             }
             else if(action == "Add Manually")
             {
-                await Navigation.PushAsync(new AddManuallyPage(_itemList));
+                await Navigation.PushAsync(new AddManuallyPage(_itemList, _loggedUser));
             }
             
         }
