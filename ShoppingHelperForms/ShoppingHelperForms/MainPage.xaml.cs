@@ -27,7 +27,7 @@ namespace ShoppingHelperForms
 
             _itemList = Task.Run(async () =>
             {
-                return await _shoppingItemService.GetAllAsync();
+                return await _shoppingItemService.GetAllAsync(_loggedUser);
             }).Result; 
 
             itemListView.ItemsSource = _itemList;

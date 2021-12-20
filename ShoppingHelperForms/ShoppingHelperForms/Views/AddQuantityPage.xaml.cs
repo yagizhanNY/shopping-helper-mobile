@@ -20,10 +20,12 @@ namespace ShoppingHelperForms.Views
         BarcodeItem _barcodeItem;
         ObservableCollection<Item> _items;
         IShoppingItemService _shoppingItemService;
+        string _loggedUser;
 
-        public AddQuantityPage(BarcodeItem item, ObservableCollection<Item> items)
+        public AddQuantityPage(BarcodeItem item, ObservableCollection<Item> items, string loggedUser)
         {
             _items = items;
+            _loggedUser = loggedUser;
             _barcodeItem = item;
             InitializeComponent();
             codeEntry.Text = _barcodeItem.Code;
@@ -36,7 +38,8 @@ namespace ShoppingHelperForms.Views
             {
                 IsChecked = false,
                 Name = _barcodeItem.Name,
-                Quantity = Convert.ToInt32(quantityEntry.Text)
+                Quantity = Convert.ToInt32(quantityEntry.Text),
+                Owner = _loggedUser
             };
 
             _items.Add(item);

@@ -53,9 +53,9 @@ namespace ShoppingHelperForms.Services.Concrete
             return await SendPostRequest(item, url);
         }
 
-        public async Task<ObservableCollection<Item>> GetAllAsync()
+        public async Task<ObservableCollection<Item>> GetAllAsync(string loggedUser)
         {
-            string url = _apiUrl + "shopping/getall";
+            string url = _apiUrl + $"shopping/getall?owner={loggedUser}";
 
             using (HttpClient client = new HttpClient())
             {

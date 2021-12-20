@@ -41,7 +41,7 @@ namespace ShoppingHelperForms.Views
 
                 if(item != null)
                 {
-                    Navigation.PushAsync(new AddQuantityPage(item, _items));
+                    Navigation.PushAsync(new AddQuantityPage(item, _items, _loggedUser));
                     Navigation.RemovePage(this);
                 }
                 else
