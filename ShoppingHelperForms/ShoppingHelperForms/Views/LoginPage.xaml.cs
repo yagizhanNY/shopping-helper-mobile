@@ -54,6 +54,10 @@ namespace ShoppingHelperForms.Views
                     DisplayAlert("Authentication Error.", "Username or password is incorrect, please try again.", "OK");
                 }
             }
+            else
+            {
+                DisplayAlert("Authentication Error.", "User not registered, please register.", "OK");
+            }
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
