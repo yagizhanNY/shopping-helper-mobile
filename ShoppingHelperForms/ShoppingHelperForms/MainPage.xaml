@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ShoppingHelperForms.MainPage"
              Title="Shopping Helper">
-
     <StackLayout>
         <StackLayout Orientation="Vertical">
             <ListView x:Name="itemListView"
@@ -48,5 +47,4 @@
                          Clicked="itemAddBtn_Clicked"></ImageButton>
         </StackLayout>
     </StackLayout>
-
 </ContentPage>
