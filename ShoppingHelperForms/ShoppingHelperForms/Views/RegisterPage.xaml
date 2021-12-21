@@ -16,7 +16,7 @@
         <Button VerticalOptions="Center"
                     Text="Register"
                     TextColor="White"
-                    BackgroundColor="Transparent"
+                    BackgroundColor="#122640"
                     BorderWidth="1.5"
                     CornerRadius="50"
                     BorderColor="Gray"

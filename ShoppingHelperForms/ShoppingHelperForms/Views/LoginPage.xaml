@@ -17,7 +17,7 @@
             <Button VerticalOptions="Center"
                     Text="Login"
                     TextColor="White"
-                    BackgroundColor="Transparent"
+                    BackgroundColor="#122640"
                     BorderWidth="1.5"
                     CornerRadius="50"
                     BorderColor="Gray"
@@ -36,6 +36,12 @@
                     <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
                 </Label.GestureRecognizers>
             </Label>
+            <ActivityIndicator x:Name="activityIndicator"
+                               Color="White"
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               IsRunning="False"
+                               IsVisible="False"></ActivityIndicator>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

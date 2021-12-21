@@ -1,4 +1,5 @@
 ﻿using ShoppingHelperForms.Entities;
+using ShoppingHelperForms.Model;
 using ShoppingHelperForms.Services.Abstract;
 using ShoppingHelperForms.Services.Concrete;
 using System;
@@ -16,47 +17,56 @@ namespace ShoppingHelperForms.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
-        string securityCode = "8546Yny8546";
-        IUserService _userApiService;
+        private readonly string securityCode = "8546Yny8546";
+        private readonly IUserService _userApiService;
         public LoginPage()
         {
             InitializeComponent();
             _userApiService = new UserApiService();
         }
 
-        private void loginBtn_Clicked(object sender, EventArgs e)
+        private async void loginBtn_Clicked(object sender, EventArgs e)
         {
+            activityIndicator.IsRunning = true;
+            activityIndicator.IsVisible = true;
+
             string username = usernameEntry.Text;
             string password = passwordEntry.Text;
 
             User user = new User()
             {
                 Username = username,
-                Password = EncryptePassword(password)
+                Password = await Task.Run(() => EncryptePassword(password))
             };
 
-            User userFromApi = Task.Run(async () =>
+            User userFromApi = await Task.Run(async () =>
             {
                 return await _userApiService.GetUserAsync(user);
-            }).Result;
+            });
 
             if (userFromApi != null)
             {
-                string passwordFromApi = DeEncryptePassword(userFromApi.Password);
+                string passwordFromApi = await Task.Run(() => DeEncryptePassword(userFromApi.Password));
 
                 if(passwordFromApi == password)
                 {
-                    Navigation.PushAsync(new MainPage(username));
+                    await Navigation.PushAsync(new MainPage(username));
                     Navigation.RemovePage(this);
+                    activityIndicator.IsRunning = false;
+                    activityIndicator.IsVisible = false;
                 }
                 else
                 {
-                    DisplayAlert("Authentication Error.", "Username or password is incorrect, please try again.", "OK");
+                    await DisplayAlert("Authentication Error.", "Username or password is incorrect, please try again.", "OK");
+                    activityIndicator.IsRunning = false;
+                    activityIndicator.IsVisible = false;
                 }
             }
             else
             {
-                DisplayAlert("Authentication Error.", "User not registered, please register.", "OK");
+                await DisplayAlert("Authentication Error.", "User not registered, please register.", "OK");
+                activityIndicator.IsRunning = false;
+                activityIndicator.IsVisible = false;
             }
         }
 
