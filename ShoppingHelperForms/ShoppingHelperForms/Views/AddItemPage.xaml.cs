@@ -53,7 +53,7 @@ namespace ShoppingHelperForms.Views
             });
         }
 
-        private async void flashlightBtn_Clicked(object sender, EventArgs e)
+        private void flashlightBtn_Clicked(object sender, EventArgs e)
         {
             if (!_flashlightStatus)
             {
