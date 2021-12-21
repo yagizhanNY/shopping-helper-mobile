@@ -76,5 +76,13 @@ namespace ShoppingHelperForms
             }
             
         }
+
+        private void LogoutBtn_Clicked(object sender, EventArgs e)
+        {
+            _loggedUser = null;
+            //delete cache
+            Navigation.PushAsync(new LoginPage());
+            Navigation.RemovePage(this);
+        }
     }
 }

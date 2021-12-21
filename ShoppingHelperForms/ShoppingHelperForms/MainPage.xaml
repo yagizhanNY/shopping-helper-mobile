@@ -3,6 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ShoppingHelperForms.MainPage"
              Title="Shopping Helper">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="LogoutBtn" IconImageSource="logout.png" Priority="0" Order="Primary" Clicked="LogoutBtn_Clicked">
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
     <StackLayout>
         <StackLayout Orientation="Vertical">
             <ListView x:Name="itemListView"

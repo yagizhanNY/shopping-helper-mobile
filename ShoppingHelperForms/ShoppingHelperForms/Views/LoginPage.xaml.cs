@@ -64,7 +64,7 @@ namespace ShoppingHelperForms.Views
             }
             else
             {
-                await DisplayAlert("Authentication Error.", "User not registered, please register.", "OK");
+                await DisplayAlert("Authentication Error.", "Username or password is incorrect, please try again.", "OK");
                 activityIndicator.IsRunning = false;
                 activityIndicator.IsVisible = false;
             }

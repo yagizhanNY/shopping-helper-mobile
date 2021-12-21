@@ -12,6 +12,13 @@
                    WidthRequest="150"
                    HeightRequest="150"
                    Margin="0, 0, 0, 30"></Image>
+            <Label Text="Shopping Helper"
+                   TextColor="White"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   FontAttributes="Bold"
+                   FontSize="Large"
+                   Padding="0, 0, 0, 10"></Label>
             <Entry Placeholder="Username" TextColor="White" PlaceholderColor="Gray" x:Name="usernameEntry"></Entry>
             <Entry Placeholder="Password" IsPassword="True" TextColor="White" PlaceholderColor="Gray" x:Name="passwordEntry"></Entry>
             <Button VerticalOptions="Center"
