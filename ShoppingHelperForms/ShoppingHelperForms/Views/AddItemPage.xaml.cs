@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -21,6 +21,7 @@ namespace ShoppingHelperForms.Views
         IBarcodeApi _barcodeApiService;
         ObservableCollection<Item> _items;
         string _loggedUser;
+        private bool _flashlightStatus = false;
         public AddItemPage(ObservableCollection<Item> items, string loggedUser)
         {
             InitializeComponent();
@@ -50,6 +51,20 @@ namespace ShoppingHelperForms.Views
                     Navigation.RemovePage(this);
                 }
             });
+        }
+
+        private async void flashlightBtn_Clicked(object sender, EventArgs e)
+        {
+            if (!_flashlightStatus)
+            {
+                cameraScreen.IsTorchOn = true;
+                _flashlightStatus = true;
+            }
+            else
+            {
+                cameraScreen.IsTorchOn = false;
+                _flashlightStatus = false;
+            }
         }
     }
 }

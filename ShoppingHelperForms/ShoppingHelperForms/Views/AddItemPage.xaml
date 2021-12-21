@@ -5,7 +5,18 @@
              x:Class="ShoppingHelperForms.Views.AddItemPage">
     <StackLayout>
         <zxing:ZXingScannerView IsScanning="True"
-                                OnScanResult="ZXingScannerView_OnScanResult"></zxing:ZXingScannerView>
+                                OnScanResult="ZXingScannerView_OnScanResult"
+                                x:Name="cameraScreen"></zxing:ZXingScannerView>
+        <ImageButton Source="flashlight.png"
+                     HeightRequest="60"
+                     WidthRequest="100"
+                     CornerRadius="50"
+                     Padding="10"
+                     Margin="10"
+                     HorizontalOptions="Center"
+                     VerticalOptions="Center"
+                     x:Name="flashlightBtn"
+                     Clicked="flashlightBtn_Clicked"></ImageButton>
     </StackLayout>
 
 </ContentPage>
