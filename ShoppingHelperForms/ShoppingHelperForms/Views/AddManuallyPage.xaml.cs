@@ -1,4 +1,6 @@
 ﻿using ShoppingHelperForms.Model;
+using ShoppingHelperForms.Services.Abstract;
+using ShoppingHelperForms.Services.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,11 +18,13 @@ namespace ShoppingHelperForms.Views
     {
         ObservableCollection<Item> _itemList;
         string _loggedUser;
+        private IShoppingItemService _shoppingItemService;
         public AddManuallyPage(ObservableCollection<Item> itemList, string loggedUser)
         {
             InitializeComponent();
             _itemList = itemList;
             _loggedUser = loggedUser;
+            _shoppingItemService = new ShoppingItemApiService();
         }
 
         private void addItemBtn_Clicked(object sender, EventArgs e)
@@ -34,6 +38,7 @@ namespace ShoppingHelperForms.Views
             };
 
             _itemList.Add(item);
+            _shoppingItemService.AddItem(item);
 
             Navigation.RemovePage(this);
         }
