@@ -34,6 +34,7 @@ namespace ShoppingHelperForms.Views
 
         private async void addItemBtn_Clicked(object sender, EventArgs e)
         {
+
             Item item = new Item()
             {
                 IsChecked = false,
