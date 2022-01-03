@@ -12,16 +12,16 @@ namespace ShoppingHelperForms.Services.Concrete
 {
     public class UserApiService : IUserService
     {
-        private readonly string _apiUrl = "https://shopping-helper-api.herokuapp.com/";
+        private readonly string _apiUrl = "https://shopping-helper-rest-api.herokuapp.com/";
         public async Task<User> AddUserAsync(User user)
         {
-            string url = _apiUrl + "users/add";
+            string url = _apiUrl + "user";
             return await SendPostRequest(user, url);
         }
 
         public async Task<User> GetUserAsync(User user)
         {
-            string url = _apiUrl + $"users/get?username={user.Username}&password={user.Password}";
+            string url = _apiUrl + $"user/{user.Username}";
 
             using(HttpClient client = new HttpClient())
             {
@@ -35,7 +35,7 @@ namespace ShoppingHelperForms.Services.Concrete
                         ContractResolver = new CamelCasePropertyNamesContractResolver()
                     };
 
-                    return JsonConvert.DeserializeObject<List<User>>(data, serializerSettings)[0];
+                    return JsonConvert.DeserializeObject<User>(data, serializerSettings);
                 }
                 catch
                 {

@@ -10,6 +10,6 @@ namespace ShoppingHelperForms.Services
     {
         Task<List<BarcodeItem>> GetAllAsync();
         Task<BarcodeItem> GetItemByCodeAsync(string code);
-        Task<bool> AddItemAsync(string name, string code);
+        Task AddItemAsync(string name, string code);
     }
 }

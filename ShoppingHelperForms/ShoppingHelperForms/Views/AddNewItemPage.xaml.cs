@@ -39,7 +39,7 @@ namespace ShoppingHelperForms.Views
 
         private async void addItemBtn_Clicked(object sender, EventArgs e)
         {
-            _ = await _barcodeApi.AddItemAsync(nameEntry.Text, _code);
+            await _barcodeApi.AddItemAsync(nameEntry.Text, _code);
 
             Item item = new Item()
             {
@@ -50,9 +50,9 @@ namespace ShoppingHelperForms.Views
             };
 
             _itemList.Add(item);
-            _ = await _shoppingItemService.AddItem(item);
+            await _shoppingItemService.AddItem(item);
 
-            _ = await Navigation.PopAsync();
+            await Navigation.PopAsync();
         }
     }
 }

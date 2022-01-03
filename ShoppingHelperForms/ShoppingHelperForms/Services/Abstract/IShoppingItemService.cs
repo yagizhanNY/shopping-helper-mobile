@@ -11,6 +11,6 @@ namespace ShoppingHelperForms.Services.Abstract
     {
         Task<ObservableCollection<Item>> GetAllAsync(string loggedUser);
         Task<Item> AddItem(Item item);
-        Task<Item> DeleteItemAsync(Item item);
+        Task DeleteItemAsync(Item item);
     }
 }

@@ -13,11 +13,11 @@ namespace ShoppingHelperForms.Services.Concrete
 {
     public class ShoppingItemApiService : IShoppingItemService
     {
-        private readonly string _apiUrl = "https://shopping-helper-api.herokuapp.com/";
+        private readonly string _apiUrl = "https://shopping-helper-rest-api.herokuapp.com/";
 
         public async Task<Item> AddItem(Item item)
         {
-            string url = _apiUrl + "shopping/add";
+            string url = _apiUrl + "shopping";
             return await SendPostRequest(item, url);
         }
 
@@ -47,21 +47,30 @@ namespace ShoppingHelperForms.Services.Concrete
             }
         }
 
-        public async Task<Item> DeleteItemAsync(Item item)
+        public async Task DeleteItemAsync(Item item)
         {
-            string url = _apiUrl + $"shopping/delete";
-            return await SendPostRequest(item, url);
+            string url = _apiUrl + $"shopping/{item.Name}/{item.Owner}";
+            await SendDeleteRequest(item, url);
         }
 
         public async Task<ObservableCollection<Item>> GetAllAsync(string loggedUser)
         {
-            string url = _apiUrl + $"shopping/getall?owner={loggedUser}";
+            string url = _apiUrl + $"shopping/{loggedUser}";
 
             using (HttpClient client = new HttpClient())
             {
                 var result = await client.GetAsync(url);
                 string data = await result.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<ObservableCollection<Item>>(data);
+            }
+        }
+
+        private static async Task SendDeleteRequest(Item item, string url)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage result = await client.DeleteAsync(url);
+                string data = await result.Content.ReadAsStringAsync();
             }
         }
     }
