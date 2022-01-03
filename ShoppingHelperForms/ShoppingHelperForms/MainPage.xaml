@@ -5,7 +5,9 @@
              Title="Shopping Helper">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="LogoutBtn" IconImageSource="logout.png" Priority="0" Order="Primary" Clicked="LogoutBtn_Clicked">
+        <ToolbarItem x:Name="LogoutBtn" IconImageSource="logout.png" Priority="1" Order="Primary" Clicked="LogoutBtn_Clicked">
+        </ToolbarItem>
+        <ToolbarItem x:Name="LoggedUserInfoLbl" Priority="0" Order="Primary">
         </ToolbarItem>
     </ContentPage.ToolbarItems>
 

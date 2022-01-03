@@ -25,6 +25,7 @@ namespace ShoppingHelperForms
         {
             _loggedUser = loggedUser;
             InitializeComponent();
+            LoggedUserInfoLbl.Text = _loggedUser;
             _shoppingItemService = new ShoppingItemApiService();
 
             _itemList = Task.Run(async () =>
