@@ -1,4 +1,5 @@
-﻿using ShoppingHelperForms.Model;
+﻿using ShoppingHelperForms.Entities;
+using ShoppingHelperForms.Model;
 using ShoppingHelperForms.Services.Abstract;
 using ShoppingHelperForms.Services.Concrete;
 using ShoppingHelperForms.Views;
@@ -9,6 +10,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace ShoppingHelperForms
@@ -79,10 +81,17 @@ namespace ShoppingHelperForms
 
         private void LogoutBtn_Clicked(object sender, EventArgs e)
         {
-            _loggedUser = null;
-            //delete cache
-            Navigation.PushAsync(new LoginPage());
-            Navigation.RemovePage(this);
+            UserStatus user = new UserStatus()
+            {
+                Username = _loggedUser,
+                LoggedIn = false
+            };
+
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await App.Database.ChangeUserStatus(user);
+                Application.Current.MainPage = new NavigationPage(new LoginPage());
+            });
         }
     }
 }

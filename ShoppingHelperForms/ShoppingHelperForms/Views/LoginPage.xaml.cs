@@ -8,7 +8,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,10 +18,26 @@ namespace ShoppingHelperForms.Views
     public partial class LoginPage : ContentPage
     {
         private readonly string securityCode = "8546Yny8546";
-        private readonly IUserService _userApiService;
+        private IUserService _userApiService;
+        private UserStatus _loggedUser;
         public LoginPage()
         {
             InitializeComponent();
+            CheckUserStatus();
+        }
+
+        private void CheckUserStatus()
+        {
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                _loggedUser = await App.Database.GetLoggedUser();
+
+                if (_loggedUser != null)
+                {
+                    Application.Current.MainPage = new NavigationPage(new MainPage(_loggedUser.Username));
+                }
+            });
+  
             _userApiService = new UserApiService();
         }
 
@@ -50,6 +66,14 @@ namespace ShoppingHelperForms.Views
 
                 if(passwordFromApi == password)
                 {
+                    UserStatus userStatus = new UserStatus()
+                    {
+                        Username = username,
+                        LoggedIn = true
+                    };
+
+                    await App.Database.ChangeUserStatus(userStatus);
+
                     await Navigation.PushAsync(new MainPage(username));
                     Navigation.RemovePage(this);
                     activityIndicator.IsRunning = false;
